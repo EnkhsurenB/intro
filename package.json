@@ -3,14 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.3.6",
+    "@ant-design/nextjs-registry": "^1.0.0",
+    "ag-grid-community": "^31.2.1",
+    "antd": "^5.16.4",
+    "antd-img-crop": "^4.21.0",
+    "docx": "^8.5.0",
+    "docxtemplater": "^3.47.1",
+    "file-saver": "^2.0.5",
+    "next": "14.2.2",
+    "pizzip": "^3.1.7",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.2"
+    "react-dom": "^18"
   }
 }

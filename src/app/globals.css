@@ -105,3 +105,36 @@ a {
     color-scheme: dark;
   }
 }
+.button-container {
+  max-width: 900px;
+  min-width: 760px;
+}
+.button-container-sm {
+  max-width: 500px;
+  min-width: 350px;
+}
+
+.container {
+  max-width: 900px;
+  min-width: 760px;
+  max-height: 500px;
+  min-height: 400px;
+  padding: 20px;
+}
+.container-sm {
+  max-width: 500px;
+  min-width: 350px;
+  height: "100%";
+  padding: 20px;
+}
+
+.container-border {
+  border: 1px #cafc03 solid;
+}
+
+.dot {
+  background-color: black;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+}
