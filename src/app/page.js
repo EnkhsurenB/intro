@@ -9,21 +9,24 @@ import ThirdSection from "@/sections/third";
 import IntroForm from "@/sections/introModal";
 
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [reset, setReset] = useState(false);
 
+  // antd
   const { useBreakpoint } = Grid;
   const screens = useBreakpoint();
   let breakpoint = (screens?.sm && !screens?.md) || screens?.xs;
 
   // modal
   const showModal = () => {
-    setIsModalOpen(true);
+    setOpen(true);
   };
   const handleOk = () => {
-    setIsModalOpen(false);
+    setOpen(false);
+    setReset(true);
   };
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setOpen(false);
   };
   return (
     <Layout style={{ height: "100vh", padding: "20px", border: "none" }}>
@@ -63,13 +66,13 @@ export default function Home() {
 
           <Modal
             title="Intro"
-            open={isModalOpen}
+            open={open}
             onOk={handleOk}
             onCancel={handleCancel}
             cancelText={"Хаах"}
             okText={"Дуусгах"}
           >
-            <IntroForm />
+            <IntroForm reset={reset} setReset={setReset} handleOk={handleOk} />
           </Modal>
         </div>
       </Flex>

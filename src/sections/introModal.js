@@ -1,43 +1,70 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // antd
 import {
   Button,
   DatePicker,
   Form,
   Input,
+  message,
   Space,
   Typography,
   Upload,
 } from "antd";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import {
+  MinusCircleOutlined,
+  PlusOutlined,
+  DownloadOutlined,
+} from "@ant-design/icons";
 import ImgCrop from "antd-img-crop";
 
-export default function IntroForm() {
+import Statement from "./fileDownLoad";
+
+// -------------------------------------------------------------------------------
+export default function IntroForm({ reset, setReset, handleOk }) {
   const [fileList, setFileList] = useState([]);
   const [emojiList, setEmojiList] = useState([]);
 
   // antd
+  const [messageApi, contextHolder] = message.useMessage();
   const { Item, List, useForm } = Form;
   const { Text } = Typography;
   const { TextArea } = Input;
   const { RangePicker } = DatePicker;
   const [form] = useForm();
 
-  // function
+  useEffect(() => {
+    if (reset) handleResetForm();
+  }, [reset]);
+
+  // function------------------------------------------------------------------------
+  // form
   const onFinish = (values) => {
-    console.log("Success:", values);
+    try {
+      messageApi.info({
+        type: "success",
+        content: "Амжилттай",
+      });
+      console.log("Success:", values);
+      // handleOk();
+    } catch (e) {
+      return;
+    }
   };
   const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
+    try {
+      messageApi.info({
+        type: "error",
+        content: "Та талбаруудыг бүрэн бөглөнө үү",
+      });
+      console.log("Failed:", errorInfo);
+    } catch (e) {
+      return;
+    }
   };
 
-  // datepicker
-  const onChange = (date, dateString) => {
-    console.log(date, dateString);
-  };
-
-  const onOk = (value) => {
-    console.log("onOk: ", value);
+  const handleResetForm = () => {
+    form.resetFields();
+    setReset(false);
   };
 
   // file
@@ -51,8 +78,6 @@ export default function IntroForm() {
   };
 
   const onEmojiChange = ({ fileList: newEmojiList }) => {
-    console.log("emojis", newEmojiList);
-
     try {
       form.setFieldsValue({ emoji: newEmojiList });
       setEmojiList(newEmojiList);
@@ -73,6 +98,7 @@ export default function IntroForm() {
       autoComplete="off"
       layout="vertical"
     >
+      {contextHolder}
       <Item
         label=""
         name="image"
@@ -155,7 +181,7 @@ export default function IntroForm() {
             },
           ]}
         >
-          <DatePicker onChange={onChange} picker="year" />
+          <DatePicker picker="year" />
         </Item>
       </Space>
 
@@ -165,6 +191,9 @@ export default function IntroForm() {
         rules={[
           {
             required: true,
+            message: "Та ажлын и-мэйл хаягаа оруулна уу.",
+          },
+          {
             type: "email",
             message: "Та ажлын и-мэйл хаягаа оруулна уу.",
           },
@@ -207,14 +236,7 @@ export default function IntroForm() {
             },
           ]}
         >
-          <RangePicker
-            format="YYYY-MM-DD"
-            onChange={(value, dateString) => {
-              console.log("Selected Time: ", value);
-              console.log("Formatted Selected Time: ", dateString);
-            }}
-            onOk={onOk}
-          />
+          <RangePicker format="YYYY-MM-DD" />
         </Item>
       </Space>
       <List
@@ -323,9 +345,15 @@ export default function IntroForm() {
           span: 16,
         }}
       >
-        <Button type="primary" htmlType="submit">
-          Submit
+        <Button
+          danger
+          icon={<DownloadOutlined />}
+          type="dashed"
+          htmlType="submit"
+        >
+          Хадгалах
         </Button>
+        <Statement />
       </Item>
     </Form>
   );
