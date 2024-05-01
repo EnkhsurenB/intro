@@ -16,13 +16,14 @@ import {
   DownloadOutlined,
 } from "@ant-design/icons";
 import ImgCrop from "antd-img-crop";
-
 import Statement from "./fileDownLoad";
 
 // -------------------------------------------------------------------------------
 export default function IntroForm({ reset, setReset, handleOk }) {
   const [fileList, setFileList] = useState([]);
   const [emojiList, setEmojiList] = useState([]);
+  const [success, setSuccess] = useState(false);
+  const [allValues, setAllValues] = useState({});
 
   // antd
   const [messageApi, contextHolder] = message.useMessage();
@@ -44,6 +45,8 @@ export default function IntroForm({ reset, setReset, handleOk }) {
         type: "success",
         content: "Амжилттай",
       });
+      setSuccess(true);
+      setAllValues({ ...allValues, ...values });
       console.log("Success:", values);
       // handleOk();
     } catch (e) {
@@ -56,6 +59,9 @@ export default function IntroForm({ reset, setReset, handleOk }) {
         type: "error",
         content: "Та талбаруудыг бүрэн бөглөнө үү",
       });
+      let val = errorInfo?.values;
+      setAllValues({ ...allValues, ...val });
+      setSuccess(false);
       console.log("Failed:", errorInfo);
     } catch (e) {
       return;
@@ -91,7 +97,9 @@ export default function IntroForm({ reset, setReset, handleOk }) {
       form={form}
       name="Intro"
       initialValues={{
-        remember: true,
+        schoolDateStr: "",
+        workStart: "",
+        workEnd: "",
       }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -121,6 +129,18 @@ export default function IntroForm({ reset, setReset, handleOk }) {
             {fileList.length === 0 && "+ Upload"}
           </Upload>
         </ImgCrop>
+      </Item>
+      <Item
+        label="Овог"
+        name="lastName"
+        rules={[
+          {
+            required: true,
+            message: "Та өөрийн овгийг оруулна уу.",
+          },
+        ]}
+      >
+        <Input />
       </Item>
       <Item
         label="Нэр"
@@ -181,7 +201,13 @@ export default function IntroForm({ reset, setReset, handleOk }) {
             },
           ]}
         >
-          <DatePicker picker="year" />
+          <DatePicker
+            picker="year"
+            onChange={(e, str) => {
+              console.log("log", e, str);
+              setAllValues({ ...allValues, schoolDateStr: str });
+            }}
+          />
         </Item>
       </Space>
 
@@ -236,7 +262,17 @@ export default function IntroForm({ reset, setReset, handleOk }) {
             },
           ]}
         >
-          <RangePicker format="YYYY-MM-DD" />
+          <RangePicker
+            format="YYYY-MM-DD"
+            onChange={(e, str) => {
+              console.log("e", str);
+              setAllValues({
+                ...allValues,
+                workStart: str[0],
+                workEnd: str[1],
+              });
+            }}
+          />
         </Item>
       </Space>
       <List
@@ -345,15 +381,20 @@ export default function IntroForm({ reset, setReset, handleOk }) {
           span: 16,
         }}
       >
-        <Button
+        {/* <Button
           danger
           icon={<DownloadOutlined />}
           type="dashed"
           htmlType="submit"
         >
           Хадгалах
-        </Button>
-        <Statement />
+        </Button> */}
+        <Statement
+          icon={<DownloadOutlined />}
+          success={success}
+          setSuccess={setSuccess}
+          values={allValues}
+        />
       </Item>
     </Form>
   );

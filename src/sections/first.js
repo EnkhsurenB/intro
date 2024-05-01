@@ -12,7 +12,14 @@ export default function FirstSection({ breakpoint }) {
       }}
     >
       <div style={{ marginBottom: breakpoint ? "10px" : "20px" }}>
-        <Image width={36} height={36} src={"./logo/simple-logo.png"} />
+        <Image
+          width={36}
+          height={36}
+          src={"./logo/simple-logo.png"}
+          preview={{
+            visible: false,
+          }}
+        />
       </div>
       <Flex style={{ width: "100%", justifyContent: "center" }}>
         <Image
@@ -20,6 +27,9 @@ export default function FirstSection({ breakpoint }) {
           height={breakpoint ? 120 : 160}
           src={"./picture/user.png"}
           fallback="./picture/test.svg"
+          preview={{
+            visible: false,
+          }}
         />
       </Flex>
       <Flex

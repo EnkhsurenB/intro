@@ -20,8 +20,6 @@ export default function DocxConfig({
 }) {
   const generateDocument = () => {
     try {
-      console.log("userDa", userData);
-
       loadFile(Template, function (error, content) {
         if (error) {
           throw error;
@@ -30,6 +28,7 @@ export default function DocxConfig({
         let doc = new Docxtemplater(zip, {
           paragraphLoop: true,
           linebreaks: true,
+          modules: [new ImageModule(imageOptions)],
         });
         // doc.setData(userData);
         try {

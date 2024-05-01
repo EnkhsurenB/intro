@@ -17,7 +17,14 @@ export default function ThirdSection({ breakpoint }) {
           justifyContent: "end",
         }}
       >
-        <Image width={36} height={36} src={"./logo/Mbank-logo.png"} />
+        <Image
+          preview={{
+            visible: false,
+          }}
+          width={36}
+          height={36}
+          src={"./logo/Mbank-logo.png"}
+        />
       </Flex>
       <Flex
         style={{
@@ -29,9 +36,30 @@ export default function ThirdSection({ breakpoint }) {
       >
         <Text strong>Намайг илэрхийлэх эможи</Text>
         <Flex style={{ gap: breakpoint ? "5px" : "10px" }}>
-          <Image width={36} height={36} src={`./emoji/emoji1.png`} />
-          <Image width={36} height={36} src={`./emoji/emoji2.png`} />
-          <Image width={36} height={36} src={`./emoji/emoji3.png`} />
+          <Image
+            preview={{
+              visible: false,
+            }}
+            width={36}
+            height={36}
+            src={`./emoji/emoji1.png`}
+          />
+          <Image
+            preview={{
+              visible: false,
+            }}
+            width={36}
+            height={36}
+            src={`./emoji/emoji2.png`}
+          />
+          <Image
+            preview={{
+              visible: false,
+            }}
+            width={36}
+            height={36}
+            src={`./emoji/emoji3.png`}
+          />
         </Flex>
       </Flex>
       <Flex

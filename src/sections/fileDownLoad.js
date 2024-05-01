@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
-// mui
+// docx
 import DocxConfig from "./docx";
-// 3rd party
-// import Template from "./file/file.docx";
-import Template from "./file/Test.docx";
+
 // ----------------------------------------------------------------------
-export default function Statement() {
+export default function Statement({ icon, success, setSuccess, values = {} }) {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
+    console.log("log", values);
     handleData();
-  }, []);
+  }, [values]);
 
   // function
   const handleData = () => {
     try {
-      let data = {
-        user: "hello world",
-      };
+      let data = values;
       setUserData(data);
     } catch (e) {
       return;
@@ -27,9 +24,11 @@ export default function Statement() {
   return (
     <DocxConfig
       userData={userData}
-      //   disabled={Object.keys(userData).length === 0}
       name={"Мэдэгдэх хуудас"}
-      Template={Template}
+      Template={"./file/file4.docx"}
+      icon={icon}
+      success={success}
+      setSuccess={setSuccess}
     />
   );
 }
