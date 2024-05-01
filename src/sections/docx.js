@@ -18,10 +18,27 @@ export default function DocxConfig({
   success,
   setSuccess,
 }) {
+  const handleName = () => {
+    return (
+      userData?.lastName.slice(0, 1).toUpperCase() +
+      "." +
+      capitalizeFirst(userData?.name)
+    );
+  };
+  const handleDate = () => {
+    let currentDate = new Date();
+    let month = currentDate.getMonth();
+    let day = currentDate.getDate();
+    return `${month + "." + day}`;
+  };
+  function capitalizeFirst(string) {
+    if (!string) return string;
+
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
   const generateDocument = () => {
     try {
-      console.log("userDa", userData);
-
       loadFile(Template, function (error, content) {
         if (error) {
           throw error;
@@ -43,7 +60,11 @@ export default function DocxConfig({
           mimeType:
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         });
-        saveAs(blob, `hi`);
+
+        let name = handleName();
+        let date = handleDate();
+
+        saveAs(blob, `${date}_Intro_${name}`);
         setSuccess(false);
       });
     } catch (e) {

@@ -7,7 +7,6 @@ export default function Statement({ icon, success, setSuccess, values = {} }) {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    console.log("log", values);
     handleData();
   }, [values]);
 

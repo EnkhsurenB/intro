@@ -71,8 +71,14 @@ export default function Home() {
             onCancel={handleCancel}
             cancelText={"Хаах"}
             okText={"Дуусгах"}
+            width={1000}
           >
-            <IntroForm reset={reset} setReset={setReset} handleOk={handleOk} />
+            <IntroForm
+              reset={reset}
+              setReset={setReset}
+              handleOk={handleOk}
+              breakpoint={breakpoint}
+            />
           </Modal>
         </div>
       </Flex>
