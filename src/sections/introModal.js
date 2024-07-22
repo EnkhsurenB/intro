@@ -9,6 +9,7 @@ import {
   Space,
   Typography,
   Upload,
+  Flex,
 } from "antd";
 import {
   MinusCircleOutlined,
@@ -76,8 +77,11 @@ export default function IntroForm({ reset, setReset, handleOk }) {
   // file
   const onFileChange = ({ fileList: newFileList }) => {
     try {
-      form.setFieldsValue({ image: newFileList[0] });
-      setFileList(newFileList);
+      console.log("new", newFileList);
+      if (typeof window !== undefined) {
+        form.setFieldsValue({ image: newFileList[0] });
+        setFileList(newFileList);
+      }
     } catch (e) {
       return;
     }
@@ -107,29 +111,31 @@ export default function IntroForm({ reset, setReset, handleOk }) {
       layout="vertical"
     >
       {contextHolder}
-      <Item
-        label=""
-        name="image"
-        rules={[
-          {
-            required: true,
-            message: "Та өөрийн нягтаршил сайтай зургийг оруулна уу.",
-          },
-        ]}
-      >
-        <ImgCrop rotationSlider>
-          <Upload
-            listType="picture-card"
-            fileList={fileList}
-            onChange={onFileChange}
-            showUploadList={{
-              showPreviewIcon: false,
-            }}
-          >
-            {fileList.length === 0 && "+ Upload"}
-          </Upload>
-        </ImgCrop>
-      </Item>
+      <Flex justify="center">
+        <Item
+          label=""
+          name="image"
+          rules={[
+            {
+              required: true,
+              message: "Та өөрийн нягтаршил сайтай зургийг оруулна уу.",
+            },
+          ]}
+        >
+          <ImgCrop rotationSlider>
+            <Upload
+              listType="picture-card"
+              // fileList={fileList}
+              onChange={onFileChange}
+              showUploadList={{
+                showPreviewIcon: false,
+              }}
+            >
+              {fileList.length === 0 && "+ Upload"}
+            </Upload>
+          </ImgCrop>
+        </Item>
+      </Flex>
       <Item
         label="Овог"
         name="lastName"

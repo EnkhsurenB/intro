@@ -71,7 +71,7 @@ export default function Home() {
             onCancel={handleCancel}
             cancelText={"Хаах"}
             okText={"Дуусгах"}
-            width={1000}
+            // width={1000}
           >
             <IntroForm
               reset={reset}

@@ -5,7 +5,6 @@ import PizZip from "pizzip";
 import PizZipUtils from "pizzip/utils/index.js";
 import Docxtemplater from "docxtemplater";
 import { saveAs } from "file-saver";
-
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 function loadFile(url, callback) {
   PizZipUtils.getBinaryContent(url, callback);
