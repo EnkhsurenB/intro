@@ -2,11 +2,17 @@
 
 import { useState } from "react";
 import { Layout, Flex, Grid, Button, Modal } from "antd";
+import dynamic from "next/dynamic"; // Import dynamic from next/dynamic for client-side rendering
+
 // section
-import FirstSection from "@/sections/first";
-import SecondSection from "@/sections/second";
-import ThirdSection from "@/sections/third";
-import IntroForm from "@/sections/introModal";
+const FirstSection = dynamic(() => import("@/sections/first"), { ssr: false });
+const SecondSection = dynamic(() => import("@/sections/second"), {
+  ssr: false,
+});
+const ThirdSection = dynamic(() => import("@/sections/third"), { ssr: false });
+const IntroForm = dynamic(() => import("@/sections/introModal"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -63,23 +69,24 @@ export default function Home() {
           <Flex style={{ justifyContent: "end", width: "100%" }}>
             <Button onClick={() => showModal()}>Бөглөх</Button>
           </Flex>
-
-          <Modal
-            title="Intro"
-            open={open}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            cancelText={"Хаах"}
-            okText={"Дуусгах"}
-            // width={1000}
-          >
-            <IntroForm
-              reset={reset}
-              setReset={setReset}
-              handleOk={handleOk}
-              breakpoint={breakpoint}
-            />
-          </Modal>
+          {typeof window !== "undefined" && (
+            <Modal
+              title="Intro"
+              open={open}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              cancelText={"Хаах"}
+              okText={"Дуусгах"}
+              // width={1000}
+            >
+              <IntroForm
+                reset={reset}
+                setReset={setReset}
+                handleOk={handleOk}
+                breakpoint={breakpoint}
+              />
+            </Modal>
+          )}
         </div>
       </Flex>
     </Layout>

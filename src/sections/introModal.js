@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 // antd
 import {
@@ -89,8 +91,10 @@ export default function IntroForm({ reset, setReset, handleOk }) {
 
   const onEmojiChange = ({ fileList: newEmojiList }) => {
     try {
-      form.setFieldsValue({ emoji: newEmojiList });
-      setEmojiList(newEmojiList);
+      if (typeof window !== "undefined") {
+        form.setFieldsValue({ emoji: newEmojiList });
+        setEmojiList(newEmojiList);
+      }
     } catch (e) {
       return;
     }
